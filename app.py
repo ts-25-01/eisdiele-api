@@ -15,8 +15,13 @@ def welkome():
 
 @app.route('/api/flavours', methods=["GET"])
 def get_flavours():
-    return jsonify(flavours)
+    return jsonify(flavours), 200
 
+@app.route("/api/flavours", methods=["POST"])
+def post_flavours():
+    new_flavour = request.get_json()
+    flavours.append(new_flavour)
+    return jsonify({"message": "Sorten hinzugefügt"}), 201
 if __name__ == "__main__":
     app.run(debug=True)
 
