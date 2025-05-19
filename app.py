@@ -12,6 +12,10 @@ flavours = [
 def welkome():
     return "Wilkommen auf der Homepage unserer Eisdiele"
 
+@app.route('/api/flavours', methods=["GET"])
+def get_flavours():
+    return jsonify(flavours)
+
 if __name__ == "__main__":
     app.run(debug=True)
 
