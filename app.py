@@ -22,6 +22,15 @@ def post_flavours():
     new_flavour = request.get_json()
     flavours.append(new_flavour)
     return jsonify({"message": "Sorten hinzugefügt"}), 201
+
+@app.route("/api/flavours/<name>", methods=['DELETE'])
+def delete_flavour(name):
+    for flavour in flavours:
+        if flavour["name"] == name:
+            flavours.remove(flavour)
+            return jsonify({"message": "Sorte wurde erfolgreich gelöscht"}), 200
+    return jsonify({"message":"Sorte nicht gefunden"}), 404
+
 if __name__ == "__main__":
     app.run(debug=True)
 
