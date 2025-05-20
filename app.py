@@ -1,6 +1,8 @@
 from flask import Flask, jsonify, request
+from flasgger import Swagger
 
 app = Flask(__name__)
+swagger = Swagger(app)
 
 flavours = [
 
@@ -15,6 +17,19 @@ def welkome():
 
 @app.route('/api/flavours', methods=["GET"])
 def get_flavours():
+    """
+    Liste aller Eis-Sorten
+    ---
+    responses:
+        200: 
+            description: JSON-Liste aller Eis-Sorten
+            examples:
+                application/json:
+                    - id: 1
+                      name: schokolade
+                      type: milch
+                      price per serving: 1.5
+    """
     return jsonify(flavours), 200
 
 @app.route("/api/flavours", methods=["POST"])
