@@ -41,5 +41,14 @@ def put_flavours(name):
             return jsonify({"message": "Sorte wurde erfolgreich geupdatet"}), 200
     return jsonify({"message":"Sorte nicht gefunden"}), 404
 
+@app.route("/api/flavours/<name>", methods=["PATCH"])
+def patch_flavours(name):
+    updatet_flavour = request.get_json()
+    for flavour in flavours:
+        if flavour["name"] == name:
+            flavour.update(updatet_flavour)
+            return jsonify({"message": "Sorte wurde erfolgreich geupdatet"}), 200
+    return jsonify({"message":"Sorte nicht gefunden"}), 404
+
 if __name__ == "__main__":
     app.run(debug=True)
