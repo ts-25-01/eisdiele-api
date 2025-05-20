@@ -31,6 +31,15 @@ def delete_flavour(name):
             return jsonify({"message": "Sorte wurde erfolgreich gelöscht"}), 200
     return jsonify({"message":"Sorte nicht gefunden"}), 404
 
+@app.route("/api/flavours/<name>", methods=["PUT"])
+def put_flavours(name):
+    updatet_flavour = request.get_json()
+    for flavour in flavours:
+        if flavour["name"] == name:
+            flavour.clear()
+            flavour.update(updatet_flavour)
+            return jsonify({"message": "Sorte wurde erfolgreich geupdatet"}), 200
+    return jsonify({"message":"Sorte nicht gefunden"}), 404
+
 if __name__ == "__main__":
     app.run(debug=True)
-
