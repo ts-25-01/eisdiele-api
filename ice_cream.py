@@ -41,7 +41,19 @@ def get_flavours(flavour_id):
     """
     Liste aller Geschmackssorten
     ---
-    # hier Swagger Docs rein
+    responses:
+        200:
+            description: JSON-Liste der Geschmackssorten
+            examples:
+                application/json:
+                    -id: 1 
+                      name: schoko
+                      type: milch
+                      price_per_serving: 1.80
+                    -id: 2
+                      name: zitrone
+                      type: frucht
+                      price_per_serving: 2.80
     """
     con = get_db_connection()
     cur = con.cursor()
