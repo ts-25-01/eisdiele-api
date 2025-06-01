@@ -49,6 +49,36 @@ def get_flavours():
 @app.route("/api/flavours", methods=["POST"])
 def post_flavours():
     """
+    Neue Geschmackssorte hinzufügen
+    ---
+    consumes:
+        - application/json
+    parameters:
+        - in: body
+          name: flavour
+          required: true
+          schema:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    example: 1
+                name:
+                    type: string
+                    example: schokolade
+                type:
+                    type: string
+                    example: milch
+                price per serving:
+                    type: number
+                    example: 1.5
+    responses:
+        201:
+            description: Sorten hinzugefügt
+        400:
+            description: Fehler, kein Objekt übergeben
+    """
+    """
     Neue Sorte hinzufügen
     ---
     consumes:
@@ -79,8 +109,11 @@ def post_flavours():
             description: Fehler, kein Objekt übergeben
     """
     new_flavour = request.get_json()
+    if not new_flavour:
+        return jsonify({"message": "Fehler, kein Objekt übergeben"}), 400
     flavours.append(new_flavour)
     return jsonify({"message": "Sorten hinzugefügt"}), 201
+
 
 
 @app.route("/api/flavours/<name>", methods=['DELETE'])
@@ -109,6 +142,39 @@ def delete_flavour(name):
 
 @app.route("/api/flavours/<name>", methods=["PUT"])
 def put_flavours(name):
+    """
+        Eine komplette Geschmackssorte mit neuen Werten überschreiben
+        ---
+        parameters:
+            - name: name
+              in: path
+              type: string
+              required: true
+              description: Der Name der Geschmackssorte bei der ein Wert überschrieben werden soll
+            - in: body
+              name: flavour
+              required: true
+              schema:
+                type: object
+                properties:
+                    id:
+                        type: integer
+                        example: 1
+                    name:
+                        type: string
+                        example: schokolade
+                    type:
+                        type: string
+                        example: milch
+                    price per serving:
+                        type: float
+                        example: 1.5
+        responses:
+            200:
+                description: Sorte wurde erfolgreich geupdatet
+            400:
+                description: Sorte nicht gefunden
+        """
     
     updatet_flavour = request.get_json()
     for flavour in flavours:
