@@ -805,5 +805,4 @@ def get_orders_customer(customer_id):
 
 # App starten
 if __name__ == "__main__":
-    init_db()
     app.run(host="127.0.0.1", port=5000, debug=True)
